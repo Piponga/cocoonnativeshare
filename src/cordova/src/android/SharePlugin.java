@@ -74,14 +74,22 @@ public class SharePlugin extends CordovaPlugin {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (_pendingCallback != null && requestCode == SHARE_REQUEST_CODE) {
+        /*if (_pendingCallback != null && requestCode == SHARE_REQUEST_CODE) {
             JSONArray array = new JSONArray();
             array.put(""); //activity name
             array.put(true); //completed
             array.put(null);
             _pendingCallback.sendPluginResult(new PluginResult(PluginResult.Status.OK, array));
             _pendingCallback = null;
-        }
+        }*/
+        if (_pendingCallback != null) {
+            JSONArray array = new JSONArray();
+            array.put(""); //activity name
+            array.put(resultCode); //completed
+            array.put(null);
+            _pendingCallback.sendPluginResult(new PluginResult(PluginResult.Status.OK, array));
+            _pendingCallback = null;
+        }        
     }
 
 
